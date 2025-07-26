@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Mary Chan Soberano</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <div class="cursor"></div>
+    
+    <!-- LDM Toggle Button -->
+    <div class="ldm-toggle" id="ldmToggle">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>LDM</span>
+    </div>
+    
+    <header>
+        <h1 data-text="Operation Mary Chan Soberano">Operation Mary Chan Soberano</h1>
+        <p>Made for Mary Chan Soberano, my fiancée</p>
+    </header>
+
+    <main>
+        <section class="project">
+            <h2>Initial Offensive</h2>
+            <p>Used to kick us out of the falling game and into the real world</p>
+            <a href="https://siafracerice.netlify.app/" target="_blank" class="project-link">View Live</a>
+        </section>
+
+        <section class="project">
+            <h2>Monthsary #1</h2>
+            <p>1st monthsary operations</p>
+            <a href="https://marychan.netlify.app/" target="_blank" class="project-link">View Live</a>
+        </section>
+
+        <section class="project">
+            <h2>Monthsary #2</h2>
+            <p>2nd monthsary operations, prioritizing simple and elegance</p>
+            <a href="http://secondmonthsary.netlify.app/" target="_blank" class="project-link">View Live</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ by Adriaan</p>
+    </footer>
+
+    <script>
+        // ULTRA-ADVANCED Cursor Tracking System
+        let cursor = document.querySelector('.cursor');
+        let trails = [];
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        // Smooth cursor movement with easing
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+
+        // Mouse tracking
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create trail effect
+            if (Math.random() > 0.7) {
+                createTrail(e.clientX, e.clientY);
+            }
+        });
+
+        // Advanced trail system
+        function createTrail(x, y) {
+            let trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                trail.remove();
+            }, 800);
+        }
+
+        // Hover effects for interactive elements
+        document.querySelectorAll('.project-link, .project').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.8)';
+                cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                cursor.style.mixBlendMode = 'difference';
+            });
+
+            element.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.backgroundColor = '';
+                cursor.style.mixBlendMode = 'normal';
+            });
+        });
+
+        // Initialize cursor animation
+        updateCursor();
+
+        // Particle system enhancement
+        function createRandomParticles() {
+            const container = document.querySelector('.floating-elements');
+            
+            setInterval(() => {
+                if (Math.random() > 0.85) {
+                    let particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, 255, 0.6)`;
+                    particle.style.animationDelay = '-' + Math.random() * 25 + 's';
+                    container.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 25000);
+                }
+            }, 3000);
+        }
+
+        // Start particle system
+        createRandomParticles();
+
+        // LDM (Low Detail Mode) Toggle System
+        const ldmToggle = document.getElementById('ldmToggle');
+        const body = document.body;
+        let isLDMActive = false;
+
+        // Check if user previously enabled LDM
+        if (localStorage.getItem('ldm-mode') === 'true') {
+            enableLDM();
+        }
+
+        ldmToggle.addEventListener('click', () => {
+            if (isLDMActive) {
+                disableLDM();
+            } else {
+                enableLDM();
+            }
+        });
+
+        function enableLDM() {
+            body.classList.add('ldm-mode');
+            ldmToggle.classList.add('active');
+            isLDMActive = true;
+            localStorage.setItem('ldm-mode', 'true');
+            
+            // Show notification
+            showNotification('Low Detail Mode Enabled - Better Performance!', '#4CAF50');
+        }
+
+        function disableLDM() {
+            body.classList.remove('ldm-mode');
+            ldmToggle.classList.remove('active');
+            isLDMActive = false;
+            localStorage.setItem('ldm-mode', 'false');
+            
+            // Show notification
+            showNotification('Full Visual Mode Enabled - Maximum Effects!', '#ff6b6b');
+        }
+
+        function showNotification(message, color) {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.ldm-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create new notification
+            const notification = document.createElement('div');
+            notification.className = 'ldm-notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: ${color};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 25px;
+                font-weight: 600;
+                font-size: 14px;
+                z-index: 100001;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(20px);
+                transform: translateX(400px);
+                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                max-width: 300px;
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.2);
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Animate out and remove
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 3000);
+        }
+
+        // Performance optimization
+        if (window.innerWidth > 768) {
+            // Enable advanced effects only on desktop
+            document.body.classList.add('desktop-effects');
+        }
+    </script>
+</body>
+</html>
