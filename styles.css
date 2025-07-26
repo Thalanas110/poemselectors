@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: none; /* Hide default cursor on all elements */
 }
 
 :root {
@@ -894,7 +895,7 @@ footer {
 
 /* QUANTUM Cursor System with Trail Effects */
 body {
-    cursor: auto; /* Keep default cursor */
+    cursor: none; /* Hide default cursor to show custom cursor */
 }
 
 .cursor {
@@ -982,7 +983,7 @@ body {
 /* ULTRA-Advanced Hover States */
 .project-link:hover,
 .project:hover {
-    cursor: pointer; /* Keep pointer cursor on interactive elements */
+    cursor: none; /* Hide default cursor, use custom cursor only */
 }
 
 .project-link:hover ~ .cursor,
@@ -1149,7 +1150,8 @@ footer p {
         border-radius: 25px;
     }
     footer { padding: 3rem 1.5rem; }
-    .cursor { display: none; } /* Hide custom cursor on mobile */
+    .cursor { display: none; } /* Hide custom cursor on mobile only */
+    body { cursor: auto; } /* Restore default cursor on mobile */
 }
 
 /* LDM (Low Detail Mode) Toggle Button */
@@ -1168,7 +1170,7 @@ footer p {
     display: flex;
     align-items: center;
     gap: 8px;
-    cursor: pointer;
+    cursor: none; /* Hide default cursor, use custom cursor only */
     z-index: 100000;
     box-shadow: 
         var(--shadow-primary),
@@ -1219,133 +1221,249 @@ footer p {
     100% { transform: rotate(360deg); }
 }
 
-/* LDM Styles - Simplified animations and effects */
+/* LDM Styles - Ultra-simplified for maximum performance */
 body.ldm-mode {
     animation: none;
+    background: 
+        linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+        url('bgimg.jpg');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-attachment: fixed, fixed;
+    background-repeat: no-repeat, no-repeat;
+    cursor: none; /* Keep default cursor hidden in LDM too */
 }
 
 body.ldm-mode::before {
-    animation: none;
-    opacity: 0.3;
+    display: none; /* Remove complex overlay */
 }
 
 body.ldm-mode::after {
-    animation: none;
+    display: none; /* Remove grain effect */
 }
 
 body.ldm-mode header {
     animation: none;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.08) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(255, 107, 107, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 body.ldm-mode header::before {
-    animation: none;
+    display: none; /* Remove rotating background */
 }
 
 body.ldm-mode header::after {
-    animation: none;
+    display: none; /* Remove pattern overlay */
 }
 
 body.ldm-mode header h1 {
     animation: none;
-    background: linear-gradient(135deg, #ff6b6b, #42a5f5);
-    background-size: 100% 100%;
+    background: linear-gradient(135deg, #ff6b6b, #42a5f5, #ab47bc);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 body.ldm-mode header h1::before,
 body.ldm-mode header h1::after {
-    display: none;
+    display: none; /* Remove text shadows and effects */
 }
 
 body.ldm-mode header p {
     animation: none;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
 }
 
 body.ldm-mode .project {
-    animation: fadeInUpLuxury 0.6s ease-out forwards;
+    animation: fadeInUpLuxury 0.4s ease-out forwards;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.12) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        0 0 30px rgba(66, 165, 245, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform-style: initial;
+    perspective: initial;
 }
 
 body.ldm-mode .project::before {
-    animation: none;
+    display: none; /* Remove top border animation */
 }
 
 body.ldm-mode .project::after {
-    animation: none;
+    display: none; /* Remove quantum field effect */
+}
+
+body.ldm-mode .project:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.35),
+        0 0 40px rgba(66, 165, 245, 0.2),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
 }
 
 body.ldm-mode .project h2 {
     animation: none;
-    background: linear-gradient(135deg, #ff6b6b, #42a5f5);
-    background-size: 100% 100%;
+    background: linear-gradient(135deg, #ff6b6b, #42a5f5, #ab47bc);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 0 15px rgba(255, 107, 107, 0.2);
+    transform-style: initial;
 }
 
 body.ldm-mode .project h2::before {
-    animation: none;
+    display: none; /* Remove underline animation */
+}
+
+body.ldm-mode .project h2::after {
+    display: none; /* Remove glow effect */
+}
+
+body.ldm-mode .project:hover h2::before,
+body.ldm-mode .project:hover h2::after {
+    display: none;
 }
 
 body.ldm-mode .project p {
     animation: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 body.ldm-mode .project p::before {
-    display: none;
+    display: none; /* Remove text sweep effect */
 }
 
 body.ldm-mode .project-link {
     animation: none;
-    background: linear-gradient(135deg, #ff6b6b, #42a5f5);
-    background-size: 100% 100%;
+    background: linear-gradient(135deg, #ff6b6b, #42a5f5, #ab47bc);
+    background-size: 200% 200%;
+    transform-style: initial;
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.25),
+        0 0 20px rgba(255, 107, 107, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+body.ldm-mode .project-link::before {
+    display: none; /* Remove shine effect */
 }
 
 body.ldm-mode .project-link::after {
     animation: none;
 }
 
+body.ldm-mode .project-link:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 0 30px rgba(255, 107, 107, 0.25),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+body.ldm-mode .project-link:hover::before {
+    display: none;
+}
+
+body.ldm-mode .project-link:hover::after {
+    transform: translateX(6px) scale(1.1);
+    transition: all 0.3s ease;
+}
+
 body.ldm-mode .floating-elements::before,
 body.ldm-mode .floating-elements::after {
-    animation: none;
-    opacity: 0.2;
+    display: none; /* Remove floating orbs completely */
 }
 
 body.ldm-mode .particle {
-    animation: none;
+    display: none; /* Remove particles completely */
 }
 
 body.ldm-mode .cursor {
     animation: none;
-    background: linear-gradient(135deg, #ff6b6b, #42a5f5);
-    background-size: 100% 100%;
+    background: linear-gradient(135deg, #ff6b6b, #42a5f5, #ab47bc);
+    background-size: 200% 200%;
+    box-shadow: 
+        0 0 15px rgba(255, 107, 107, 0.4),
+        0 0 25px rgba(66, 165, 245, 0.2);
+    backdrop-filter: none;
+    mix-blend-mode: normal;
+    display: block; /* Keep cursor visible in LDM */
 }
 
 body.ldm-mode .cursor::before {
-    animation: none;
+    display: none; /* Remove orbit ring */
+}
+
+body.ldm-mode .cursor::after {
+    box-shadow: none;
+}
+
+body.ldm-mode .cursor-trail {
+    display: none; /* Remove cursor trails */
 }
 
 body.ldm-mode footer {
-    animation: slideInFromLeft 0.6s ease-out 0.3s forwards;
+    animation: slideInFromLeft 0.4s ease-out 0.2s forwards;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.5) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 -4px 16px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(171, 71, 188, 0.1);
 }
 
 body.ldm-mode footer::before {
-    animation: none;
+    display: none; /* Remove rotating background */
 }
 
 body.ldm-mode footer p {
     animation: none;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 body.ldm-mode ::-webkit-scrollbar-track {
     animation: none;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 body.ldm-mode ::-webkit-scrollbar-thumb {
     animation: none;
     background: linear-gradient(135deg, #ff6b6b, #42a5f5);
     background-size: 100% 100%;
+    box-shadow: none;
+}
+
+body.ldm-mode ::-webkit-scrollbar-thumb:hover {
+    transform: none;
+}
+
+/* Disable will-change for better performance in LDM */
+body.ldm-mode *,
+body.ldm-mode *::before,
+body.ldm-mode *::after {
+    will-change: auto !important;
 }
 
 /* Mobile LDM adjustments */

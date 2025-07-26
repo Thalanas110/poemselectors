@@ -74,8 +74,8 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Create trail effect
-            if (Math.random() > 0.7) {
+            // Create trail effect only if LDM is disabled
+            if (!isLDMActive && Math.random() > 0.7) {
                 createTrail(e.clientX, e.clientY);
             }
         });
@@ -115,8 +115,9 @@
         function createRandomParticles() {
             const container = document.querySelector('.floating-elements');
             
-            setInterval(() => {
-                if (Math.random() > 0.85) {
+            const particleInterval = setInterval(() => {
+                // Only create particles if LDM is disabled
+                if (!isLDMActive && Math.random() > 0.85) {
                     let particle = document.createElement('div');
                     particle.className = 'particle';
                     particle.style.left = Math.random() * 100 + '%';
@@ -129,18 +130,23 @@
                     }, 25000);
                 }
             }, 3000);
+            
+            return particleInterval;
         }
 
         // Start particle system
-        createRandomParticles();
+        let particleSystemInterval = createRandomParticles();
 
         // LDM (Low Detail Mode) Toggle System
         const ldmToggle = document.getElementById('ldmToggle');
         const body = document.body;
-        let isLDMActive = false;
+        let isLDMActive = true; // Default to LDM ON for better performance
 
-        // Check if user previously enabled LDM
-        if (localStorage.getItem('ldm-mode') === 'true') {
+        // Check if user previously disabled LDM, otherwise keep it enabled by default
+        if (localStorage.getItem('ldm-mode') === 'false') {
+            disableLDM();
+        } else {
+            // Enable LDM by default (better for mobile performance)
             enableLDM();
         }
 
@@ -158,8 +164,14 @@
             isLDMActive = true;
             localStorage.setItem('ldm-mode', 'true');
             
-            // Show notification
-            showNotification('Low Detail Mode Enabled - Better Performance!', '#4CAF50');
+            // Clear existing particles for performance
+            document.querySelectorAll('.particle').forEach(particle => particle.remove());
+            document.querySelectorAll('.cursor-trail').forEach(trail => trail.remove());
+            
+            // Show notification only if user manually enabled it
+            if (localStorage.getItem('ldm-mode') !== null) {
+                showNotification('Performance Mode On - Smooth Experience!', '#4CAF50');
+            }
         }
 
         function disableLDM() {
@@ -169,7 +181,7 @@
             localStorage.setItem('ldm-mode', 'false');
             
             // Show notification
-            showNotification('Full Visual Mode Enabled - Maximum Effects!', '#ff6b6b');
+            showNotification('Full Effects Mode - Maximum Visual Impact!', '#ff6b6b');
         }
 
         function showNotification(message, color) {
