@@ -18,6 +18,12 @@
     </div>
     <div class="cursor"></div>
     
+    <!-- LDM Toggle Button -->
+    <div class="ldm-toggle" id="ldmToggle">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>LDM</span>
+    </div>
+    
     <header>
         <h1 data-text="Operation Mary Chan Soberano">Operation Mary Chan Soberano</h1>
         <p>Made for Mary Chan Soberano, my fiancée</p>
@@ -127,6 +133,91 @@
 
         // Start particle system
         createRandomParticles();
+
+        // LDM (Low Detail Mode) Toggle System
+        const ldmToggle = document.getElementById('ldmToggle');
+        const body = document.body;
+        let isLDMActive = false;
+
+        // Check if user previously enabled LDM
+        if (localStorage.getItem('ldm-mode') === 'true') {
+            enableLDM();
+        }
+
+        ldmToggle.addEventListener('click', () => {
+            if (isLDMActive) {
+                disableLDM();
+            } else {
+                enableLDM();
+            }
+        });
+
+        function enableLDM() {
+            body.classList.add('ldm-mode');
+            ldmToggle.classList.add('active');
+            isLDMActive = true;
+            localStorage.setItem('ldm-mode', 'true');
+            
+            // Show notification
+            showNotification('Low Detail Mode Enabled - Better Performance!', '#4CAF50');
+        }
+
+        function disableLDM() {
+            body.classList.remove('ldm-mode');
+            ldmToggle.classList.remove('active');
+            isLDMActive = false;
+            localStorage.setItem('ldm-mode', 'false');
+            
+            // Show notification
+            showNotification('Full Visual Mode Enabled - Maximum Effects!', '#ff6b6b');
+        }
+
+        function showNotification(message, color) {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.ldm-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create new notification
+            const notification = document.createElement('div');
+            notification.className = 'ldm-notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: ${color};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 25px;
+                font-weight: 600;
+                font-size: 14px;
+                z-index: 100001;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(20px);
+                transform: translateX(400px);
+                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                max-width: 300px;
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.2);
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Animate out and remove
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 3000);
+        }
 
         // Performance optimization
         if (window.innerWidth > 768) {
